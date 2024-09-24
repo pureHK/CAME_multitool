@@ -23,7 +23,7 @@ typedef struct {
 
 typedef struct {
 	uint8_t fa_fc_swap;
-	uint8_t naked;
+	uint8_t naked;  //
 	uint8_t restrict_numerator;
 	uint8_t restrict_denominator;
 } T_ADDITIONAL_DATA;

@@ -16,10 +16,10 @@
 
 
 typedef struct {
-	uint8_t first_impulse;
-	uint8_t measurements;
-	uint8_t idx;
-	uint8_t period_too_short;
+	uint8_t first_impulse;     // bool variable that helps preventing bad calculations and improving program flow
+	uint8_t measurements;      // helper variable for counting from 0 to 8, helps calculating the RPM mean properly
+	uint8_t idx;               // variable that holds current index of measurement array
+	uint8_t period_too_short;  // flag variable
 	uint8_t count_time;
 	uint32_t short_period_cnt;
 	uint32_t short_period;
@@ -165,14 +165,14 @@ static void encoder_test( uint8_t button_status ) {
 void start_encoder_test( uint8_t button_status ) {
 	c = (T_CONTEXT*)gd->current_program_context->buffer;
 
-	lcd_defchar_P( 0, charTick );
+	lcd_defchar_P( 0, charTick ); // push 'Tick' symbol to LCD CGRAM
 
-	reset_time();
+	reset_time(); // prevent time overflow to occur right after starting the test
 
-	gd->encoder_increment = 0;
-	gd->encoder_aux_increment = 0;
-	c->first_impulse = 1;
-	c->measurements = 0;
+	gd->encoder_increment = 0;     // reset the encoder flag
+	gd->encoder_aux_increment = 0; // reset flag of auxiliary encoder (this line should be removed, since the auxiliary encoder is not used anymore)
+	c->first_impulse = 1;          // indicate that the start impulse is the first one
+	c->measurements = 0;           //
 	c->idx = 0;
 	c->count_time = 11;
 	c->period_too_short = 0;

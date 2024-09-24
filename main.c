@@ -12,6 +12,7 @@
 #include "led.h"
 
 // -Wl,--gc-sections
+// Repository available on GitHub
 
 /* ----------------------------------------- PROTOTYPES ----------------------------------------- */
 void system_init( void );
