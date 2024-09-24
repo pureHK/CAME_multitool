@@ -24,7 +24,7 @@ typedef struct {
 	uint32_t short_period_cnt;
 	uint32_t short_period;
 	uint16_t RPM;
-	uint8_t p;
+	uint8_t p;                 // helper value
 } T_CONTEXT;
 
 static T_CONTEXT *c;
@@ -172,21 +172,21 @@ void start_encoder_test( uint8_t button_status ) {
 	gd->encoder_increment = 0;     // reset the encoder flag
 	gd->encoder_aux_increment = 0; // reset flag of auxiliary encoder (this line should be removed, since the auxiliary encoder is not used anymore)
 	c->first_impulse = 1;          // indicate that the start impulse is the first one
-	c->measurements = 0;           //
-	c->idx = 0;
-	c->count_time = 11;
-	c->period_too_short = 0;
-	c->short_period_cnt = 0;
-	c->p = 2;
+	c->measurements = 0;           // ncn (no comment needed)
+	c->idx = 0;                    // ncn
+	c->count_time = 11;            // time counting specificity imposes starting from 11 to count 10 seconds
+	c->period_too_short = 0;       // ncn (unused for now)
+	c->short_period_cnt = 0;       //
+	c->p = 2;                      //
 
 	TimerShort2 = 10;
 	TimerLong = 0;
 
 	write_str_to_lcd( PSTR("Uruchom"),
-				      PSTR("enkoder...") );
+				      PSTR("enkoder...") ); // show starting message
 
-	fa_on();
-	fc_on();
+	fa_on(); // (read * comment below)
+	fc_on(); // * set the gate state as it was somewhere in the middle of the opening
 
 	set_continuous_procedure( encoder_process );
 	enter_program( encoder_test, 1, 0 );
